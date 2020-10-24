@@ -29,27 +29,36 @@ import { getSafelyScrollNode, setRef } from './utils';
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated;
 const AnimatedScrollView = createAnimatedComponent(ScrollView);
 
-const HeaderImageBackground = ({ backgroundHeight, backgroundImage, background }) => {
-  const AnimatedImageBackground = createAnimatedComponent(ImageBackground);
+class HeaderBackgroundImage extends React.Component {
+  render() {
+    const { backgroundHeight, backgroundImage, background } = this.props;
+    const AnimatedImageBackground = createAnimatedComponent(ImageBackground);
 
-  return (
-    <AnimatedImageBackground
-      style={[
-        styles.headerStyle,
-        {
-          height: backgroundHeight,
-        },
-      ]}
-      source={backgroundImage}>
-      {background}
-    </AnimatedImageBackground>
-  );
+    return (
+      <AnimatedImageBackground
+        style={[
+          styles.headerStyle,
+          {
+            height: backgroundHeight,
+          },
+        ]}
+        source={backgroundImage}>
+        {background}
+      </AnimatedImageBackground>
+    );
+  }
+}
+
+HeaderBackgroundImage.propTypes = {
+  background: node,
+  backgroundHeight: number,
+  backgroundImage: Image.propTypes.source,
 };
 
 const headerImagesAreEqual = (prevProps, props) =>
-  prevProps.backgroundImage.uri === props.backgroundImage.uri;
+  prevProps.backgroundImage.uri === props.backgroundImage.uri
 
-const MemoHeaderImageBackground = React.memo(HeaderImageBackground, headerImagesAreEqual);
+const MemoHeaderImageBackground = React.memo(HeaderBackgroundImage, headerImagesAreEqual);
 
 class StickyParallaxHeader extends Component {
   constructor(props) {
