@@ -29,25 +29,23 @@ import { getSafelyScrollNode, setRef } from './utils';
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated;
 const AnimatedScrollView = createAnimatedComponent(ScrollView);
 
-class HeaderBackgroundImage extends React.Component {
-  render() {
-    const { backgroundHeight, backgroundImage, background } = this.props;
-    const AnimatedImageBackground = createAnimatedComponent(ImageBackground);
+const HeaderBackgroundImage = (props) => {
+  const { backgroundHeight, backgroundImage, background } = props;
+  const AnimatedImageBackground = createAnimatedComponent(ImageBackground);
 
-    return (
-      <AnimatedImageBackground
-        style={[
-          styles.headerStyle,
-          {
-            height: backgroundHeight,
-          },
-        ]}
-        source={backgroundImage}>
-        {background}
-      </AnimatedImageBackground>
-    );
-  }
-}
+  return (
+    <AnimatedImageBackground
+      style={[
+        styles.headerStyle,
+        {
+          height: backgroundHeight,
+        },
+      ]}
+      source={backgroundImage}>
+      {background}
+    </AnimatedImageBackground>
+  );
+};
 
 HeaderBackgroundImage.propTypes = {
   background: node,
@@ -56,7 +54,7 @@ HeaderBackgroundImage.propTypes = {
 };
 
 const headerImagesAreEqual = (prevProps, props) =>
-  prevProps.backgroundImage.uri === props.backgroundImage.uri
+  prevProps.backgroundImage.uri === props.backgroundImage.uri;
 
 const MemoHeaderImageBackground = React.memo(HeaderBackgroundImage, headerImagesAreEqual);
 
